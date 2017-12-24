@@ -2,15 +2,13 @@
   "name": "@icetee/ftp",
   "version": "1.0.0",
   "author": "Tamás András Horváth <htomy92@gmail.com>",
-  "contributors": [
-    "Brian White <mscdex@mscdex.net>"
-  ],
   "description": "An FTP client module for node.js",
   "main": "./lib/connection",
   "engines": {
     "node": ">=6.4.0"
   },
   "dependencies": {
+    "composite-disposable": "^1.0.0",
     "xregexp": "^3.2.0"
   },
   "scripts": {
