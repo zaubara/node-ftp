@@ -24,7 +24,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "http://github.com/icetee/node-ftp.git"
+    "url": "https://github.com/icetee/node-ftp.git"
   },
   "devDependencies": {
     "babel-register": "^6.26.0",
