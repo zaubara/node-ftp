@@ -893,6 +893,27 @@ const entires = [
     what: 'Windows with UNIX style file #1',
   },
   {
+    source: '-rw-r--r--   1 300794   AD\\Domain Users     6148 Sep 19 06:17 .DS_Store',
+    expected: {
+      type: '-',
+      name: '.DS_Store',
+      target: undefined,
+      sticky: false,
+      rights: {
+        user: 'rw',
+        group: 'r',
+        other: 'r',
+      },
+      acl: false,
+      owner: '300794',
+      group: 'AD\\Domain Users',
+      size: 6148,
+      pointer: undefined,
+      date: resolveDate(`${cYear}-09-19T06:17:00.000Z`),
+    },
+    what: 'Windows Active Directory double slash in groupname',
+  },
+  {
     source: 'total 871',
     expected: null,
     what: 'Ignored line',
