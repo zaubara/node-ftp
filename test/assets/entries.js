@@ -1,9 +1,18 @@
 const cYear = (new Date()).getFullYear();
 const timezoneDiff = date => ((-new Date(date).getTimezoneOffset() / 60) * 3600000);
-const resolveDate = (date, old = false, isUTC = false) => {
-  if (isUTC) return new Date(date);
+const resolveDate = (date, isUTC = false) => {
+  const d = new Date(date);
+  let currentYear = (new Date()).getFullYear();
 
-  return new Date(new Date(date) - timezoneDiff(old ? date : new Date()));
+  if (d - 0 > new Date() - 0) {
+    currentYear--;
+
+    d.setFullYear(currentYear);
+  }
+
+  if (isUTC) return d;
+
+  return new Date(d - timezoneDiff(date));
 };
 
 const entires = [
@@ -24,7 +33,7 @@ const entires = [
       group: 'root',
       size: 4096,
       pointer: undefined,
-      date: resolveDate('2012-12-21T00:00:00.000Z', false, true),
+      date: resolveDate('2012-12-21T00:00:00.000Z', true),
     },
     what: 'Normal directory',
   },
@@ -45,7 +54,7 @@ const entires = [
       group: 'group',
       size: 0,
       pointer: undefined,
-      date: resolveDate('2012-08-31T00:00:00.000Z', false, true),
+      date: resolveDate('2012-08-31T00:00:00.000Z', true),
     },
     what: 'Normal directory #2',
   },
@@ -66,7 +75,7 @@ const entires = [
       group: 'group',
       size: 7045120,
       pointer: undefined,
-      date: resolveDate('2012-09-02T00:00:00.000Z', false, true),
+      date: resolveDate('2012-09-02T00:00:00.000Z', true),
     },
     what: 'Normal file',
   },
@@ -87,7 +96,7 @@ const entires = [
       group: 'group',
       size: 7045120,
       pointer: undefined,
-      date: resolveDate('2012-09-02T00:00:00.000Z', false, true),
+      date: resolveDate('2012-09-02T00:00:00.000Z', true),
     },
     what: 'File with number id owner',
   },
@@ -108,7 +117,7 @@ const entires = [
       group: '1234',
       size: 7045120,
       pointer: undefined,
-      date: resolveDate('2012-09-02T00:00:00.000Z', false, true),
+      date: resolveDate('2012-09-02T00:00:00.000Z', true),
     },
     what: 'File with number id group',
   },
@@ -276,7 +285,7 @@ const entires = [
       group: 'group',
       size: 7045120,
       pointer: undefined,
-      date: resolveDate('2012-09-02T00:00:00.000Z', false, true),
+      date: resolveDate('2012-09-02T00:00:00.000Z', true),
     },
     what: 'File with ACL set',
   },
@@ -297,7 +306,7 @@ const entires = [
       group: 'root',
       size: 4096,
       pointer: undefined,
-      date: resolveDate('2012-05-19T00:00:00.000Z', false, true),
+      date: resolveDate('2012-05-19T00:00:00.000Z', true),
     },
     what: 'Directory with sticky bit and executable for others',
   },
@@ -318,7 +327,7 @@ const entires = [
       group: 'root',
       size: 4096,
       pointer: undefined,
-      date: resolveDate('2012-05-19T00:00:00.000Z', false, true),
+      date: resolveDate('2012-05-19T00:00:00.000Z', true),
     },
     what: 'Directory with sticky bit and executable for others #2',
   },
@@ -339,7 +348,7 @@ const entires = [
       group: 'root',
       size: 4096,
       pointer: undefined,
-      date: resolveDate('2012-05-19T00:00:00.000Z', false, true),
+      date: resolveDate('2012-05-19T00:00:00.000Z', true),
     },
     what: 'Directory with sticky bit and not executable for others',
   },
@@ -360,7 +369,7 @@ const entires = [
       group: 'root',
       size: 4096,
       pointer: undefined,
-      date: resolveDate('2012-05-19T00:00:00.000Z', false, true),
+      date: resolveDate('2012-05-19T00:00:00.000Z', true),
     },
     what: 'Directory with sticky bit and not executable for others #2',
   },
@@ -444,7 +453,7 @@ const entires = [
       group: '501',
       size: 18,
       pointer: undefined,
-      date: resolveDate('2017-07-04T00:00:00.000Z', false, true),
+      date: resolveDate('2017-07-04T00:00:00.000Z', true),
     },
     what: 'Directory with undefined bit-state',
   },
@@ -465,7 +474,7 @@ const entires = [
       group: '501',
       size: 18,
       pointer: undefined,
-      date: resolveDate('2017-07-04T00:00:00.000Z', false, true),
+      date: resolveDate('2017-07-04T00:00:00.000Z', true),
     },
     what: 'Directory with set the set-user-ID or set-group-ID bit',
   },
@@ -486,7 +495,7 @@ const entires = [
       group: '501',
       size: 18,
       pointer: undefined,
-      date: resolveDate('2017-07-04T00:00:00.000Z', false, true),
+      date: resolveDate('2017-07-04T00:00:00.000Z', true),
     },
     what: 'Directory with mandatory lock',
   },
@@ -507,7 +516,7 @@ const entires = [
       group: '501',
       size: 18,
       pointer: undefined,
-      date: resolveDate('2017-07-04T00:00:00.000Z', false, true),
+      date: resolveDate('2017-07-04T00:00:00.000Z', true),
     },
     what: 'Directory with block device simple',
   },
@@ -528,7 +537,7 @@ const entires = [
       group: 'disk',
       size: 0,
       pointer: '8,0',
-      date: resolveDate('2017-11-24T10:13:00.000Z', true),
+      date: resolveDate(`${cYear}-11-24T10:13:00.000Z`),
     },
     what: 'Directory with block device',
   },
@@ -612,7 +621,7 @@ const entires = [
       group: '501',
       size: 18,
       pointer: undefined,
-      date: resolveDate('2017-07-04T00:00:00.000Z', false, true),
+      date: resolveDate('2017-07-04T00:00:00.000Z', true),
     },
     what: 'Directory with named pipe',
   },
@@ -633,7 +642,7 @@ const entires = [
       group: '501',
       size: 18,
       pointer: undefined,
-      date: resolveDate('2017-07-04T00:00:00.000Z', false, true),
+      date: resolveDate('2017-07-04T00:00:00.000Z', true),
     },
     what: 'Directory with socket',
   },
@@ -674,7 +683,7 @@ const entires = [
   //     owner: 'oinstall',
   //     group: 'root',
   //     size: 4096,
-  //     date: resolveDate('2012-12-21T00:00:00.000Z', false, true),
+  //     date: resolveDate('2012-12-21T00:00:00.000Z', true),
   //   },
   //   what: 'Directory without group',
   // },
@@ -695,7 +704,7 @@ const entires = [
       group: 'group',
       size: 7045120,
       pointer: undefined,
-      date: resolveDate('2012-09-02T00:00:00.000Z', false, true),
+      date: resolveDate('2012-09-02T00:00:00.000Z', true),
     },
     what: 'MacOS @ symbol file',
   },
@@ -716,7 +725,7 @@ const entires = [
       group: 'root',
       size: 4096,
       pointer: undefined,
-      date: resolveDate('2012-12-21T00:00:00.000Z', false, true),
+      date: resolveDate('2012-12-21T00:00:00.000Z', true),
     },
     what: 'Directory with special name #2',
   },
